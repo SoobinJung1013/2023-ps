@@ -14,9 +14,9 @@ public class Main {
             String s = st.nextToken();
 
             for (int j = 0; j < s.length(); j++) {
-                for (int k = 0; k < a; k++) {
-                    System.out.print(s.charAt(j));
-                }
+                String temp = s.charAt(j) + "";
+                System.out.print(temp.repeat(a));
+
             }
             System.out.println();
         }
