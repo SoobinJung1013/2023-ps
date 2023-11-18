@@ -12,8 +12,9 @@ public class Main {
         String str;
 
         while( (str=br.readLine()) != null ){
-
+//            System.out.println(str);
             st = new StringTokenizer(str," ");
+            if (st.countTokens() == 0) break;
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
             sb.append(a+b).append("\n");
