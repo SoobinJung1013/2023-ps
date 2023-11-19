@@ -1,54 +1,59 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.io.IOException;
+
+import java.util.*;
 
 public class Main {
 
-    static int[] dx = {0, 1, 0, -1};
-    static int[] dy = {1, 0, -1, 0};
+    static int[][] arr;
     static boolean[][] visited;
-    static int[][] A;
-    static int N, M;
+    static int[] dx = {0, 0, -1, 1};
+    static int[] dy = {-1, 1, 0, 0};
+
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
+        st = new StringTokenizer(br.readLine());
 
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
 
-        A = new int[N][M];
-        visited = new boolean[N][M];
+        arr = new int[n][m];
+        visited = new boolean[n][m];
 
-        for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            String line = st.nextToken();
-            for (int j = 0; j < M; j++) {
-                A[i][j] = Integer.parseInt(line.substring(j, j + 1));
+        for (int i = 0; i < n; i++) {
+            String line = br.readLine();
+            for (int j = 0; j < m; j++) {
+                arr[i][j] = Integer.parseInt(line.charAt(j) + "");
             }
         }
-        BFS(0, 0);
-        System.out.println(A[N - 1][M - 1]);
 
+        bfs(0, 0);
+        System.out.println(arr[n - 1][m - 1]); // 도착점
     }
 
-    public static void BFS(int i, int j) {
-        Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{i, j});
-        while (!queue.isEmpty()) {
-            int now[] = queue.poll();
-            visited[i][j] = true;
-            for (int k = 0; k < 4; k++) {
-                int x = now[0] + dx[k];
-                int y = now[1] + dy[k];
-                if (x >= 0 && y >= 0 && x < N && y < M) {
-                    if (A[x][y] != 0 && !visited[x][y]) {
-                        visited[x][y] = true;
-                        A[x][y] = A[now[0]][now[1]] + 1;
-                        queue.add(new int[]{x, y});
+    public static void bfs(int x, int y) {
+        Queue<int[]> q = new LinkedList<>();
+        q.offer(new int[]{x, y}); // 시작점
+        visited[x][y] = true; // 시작점 방문처리
+
+        while (!q.isEmpty()) {
+            int[] point = q.poll();
+            int px = point[0];
+            int py = point[1];
+
+            for (int i = 0; i < 4; i++) { // 상하좌우
+                int nx = px + dx[i];
+                int ny = py + dy[i];
+
+                if (nx >= 0 && nx < arr.length && ny >= 0 && ny < arr[0].length) { // 범위 체크
+                    if (arr[nx][ny] != 0 && !visited[nx][ny]) { // 방문하지 않은 1인 경우
+                        q.offer(new int[]{nx, ny});
+                        visited[nx][ny] = true;
+                        arr[nx][ny] = arr[px][py] + 1; // 이전 좌표의 값 + 1
                     }
                 }
             }
