@@ -1,38 +1,39 @@
-import java.io.*;
-import java.util.LinkedList;
-import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+
+import java.math.BigInteger;
+import java.util.*;
 
 public class Main {
 
-    static LinkedList<Integer> stack = new LinkedList<>();
-
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));StringTokenizer st;
+        int n = Integer.parseInt(br.readLine());
         StringBuilder sb = new StringBuilder();
 
-        StringTokenizer st;
-
-        int N = Integer.parseInt(br.readLine()); //명령어의 수
-
-        while(N --> 0){
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            String command = st.nextToken();
-            if(command.equals("1")){
-                stack.addFirst(Integer.parseInt(st.nextToken()));
-            }else if(command.equals("2")){
-                sb.append(stack.isEmpty() ? -1 : stack.pollFirst()).append("\n");
-            }else if(command.equals("3")){
+            int command = Integer.parseInt(st.nextToken());
+            if (command == 1) {
+                int x = Integer.parseInt(st.nextToken());
+                stack.push(x);
+            } else if (command == 2) {
+                sb.append(stack.isEmpty() ? -1 : stack.pop()).append("\n");
+//                System.out.println(stack.isEmpty() ? -1 : stack.pop());
+            } else if (command == 3) {
                 sb.append(stack.size()).append("\n");
-            }else if(command.equals("4")){
+//                System.out.println(stack.size());
+            } else if (command == 4) {
                 sb.append(stack.isEmpty() ? 1 : 0).append("\n");
-            }else if(command.equals("5")){
-                sb.append(stack.isEmpty()? -1 : stack.getFirst()).append("\n");
+//                System.out.println(stack.isEmpty() ? 1 : 0);
+            } else if (command == 5) {
+                sb.append(stack.isEmpty() ? -1 : stack.peek()).append("\n");
+//                System.out.println(stack.isEmpty() ? -1 : stack.peek());
             }
         }
-        br.close();
-
         System.out.println(sb);
-
     }
-
 }
