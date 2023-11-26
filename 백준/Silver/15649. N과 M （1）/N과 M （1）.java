@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.util.StringTokenizer;
 
@@ -19,12 +20,13 @@ public class Main {
         arr = new int[M];
         visited = new boolean[N];
 
-        dfs(0);
+        backtracking(0);
         System.out.println(sb);
     }
 
-    public static void dfs(int depth) {
-        if (depth == M) {
+    public static void backtracking(int level) {
+        // 종료 조선
+        if (level == M) {
             for (int val : arr) {
                 sb.append(val).append(' ');
             }
@@ -32,11 +34,12 @@ public class Main {
             return;
         }
 
+        // 가지 치기
         for (int i = 0; i < N; i++) {
             if(!visited[i]) {
                 visited[i] = true;
-                arr[depth] = i + 1;
-                dfs(depth + 1);
+                arr[level] = i + 1;
+                backtracking(level + 1);
                 visited[i] = false;
             }
         }
