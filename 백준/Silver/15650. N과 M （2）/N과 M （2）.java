@@ -17,13 +17,13 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
 
         arr = new int[M];
-        combination(1, 0);
+        backtracking(1, 0);
 
         System.out.println(sb);
     }
 
-    public static void combination(int start, int depth) {
-        if (depth == M) {
+    public static void backtracking(int start, int level) {
+        if (level == M) {
             for (int value : arr) {
                 sb.append(value).append(' ');
             }
@@ -32,8 +32,8 @@ public class Main {
         }
 
         for (int i = start; i <= N; i++) {
-            arr[depth] = i;
-            combination(i + 1, depth + 1);
+            arr[level] = i;
+            backtracking(i + 1, level + 1);
         }
     }
 }
